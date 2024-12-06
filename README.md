@@ -12,4 +12,5 @@ if you want to suggest some ideas and some fixes i can do to my program let me k
 se volete suggerire qualche idea e qualche cosa da sistemare nel mio programma per favore fatemi sapere 
 
 THANKS FOR THE SUPPORT 
-DAMI
+The dolphin
+
