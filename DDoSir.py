@@ -4,6 +4,8 @@ import socket
 import random
 from scapy.all import RadioTap, Dot11, Dot11Deauth, sendp
 import subprocess
+import platform
+import os
 
 def display_gui():
     gui = """
@@ -98,11 +100,26 @@ def flood_attack(ip, ip_version, port, packet_size, rate_limit, duration):
 def wifi_scan():
     print("\nPerforming WiFi scan...")
     try:
-        scan_command = "sudo iwlist wlan0 scan"
+        os_type = platform.system()
+        
+        if os_type == "Linux":
+            scan_command = "sudo iwlist wlan0 scan"
+        elif os_type == "Windows":
+            scan_command = "netsh wlan show networks"
+        elif os_type == "Darwin":  
+            scan_command = "airport -s"
+        else:
+            print("Unsupported operating system for WiFi scanning.")
+            return
+        
+        # Execute the scan command
         output = subprocess.check_output(scan_command, shell=True, text=True)
         print(output)
+        
     except subprocess.CalledProcessError as e:
         print(f"An error occurred during WiFi scan: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
 def wifi_deauth_attack(bssid, client_mac):
     print("\nStarting WiFi Deauthentication Attack...")
